@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+
 import { AiFillCheckCircle, AiFillDelete } from "react-icons/ai";
 import { FaUndoAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -8,14 +8,17 @@ import ModalRemove from "../../components/ModalRemove";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.init";
 import { axiosPrivate } from "../../Api/axiosPrivate";
+import Spinner from "../../components/Spinner";
 
 const SingleAssignment = ({ assignment, refetch }) => {
   const navigate = useNavigate();
   const { course, topic, deadline, resource, complete, _id } = assignment;
   const [modal, setModal] = useState(false);
   const [user] = useAuthState(auth);
+  const [spinning, setSpinning] = useState(false);
 
   const handleRemove = () => {
+    setSpinning(true);
     axiosPrivate
       .delete(`/assignment/${_id}`, {
         data: {
@@ -24,6 +27,8 @@ const SingleAssignment = ({ assignment, refetch }) => {
       })
       .then((res) => {
         toast.success("assignment removed");
+        setModal(false);
+        setSpinning(false);
         refetch();
       });
   };
@@ -46,6 +51,7 @@ const SingleAssignment = ({ assignment, refetch }) => {
         refetch();
       });
   };
+  if (spinning) return <Spinner />;
   return (
     <>
       <div>

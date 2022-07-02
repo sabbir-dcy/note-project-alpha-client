@@ -8,14 +8,16 @@ import ModalRemove from "../../components/ModalRemove";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.init";
 import { axiosPrivate } from "../../Api/axiosPrivate";
+import Spinner from "../../components/Spinner";
 
 const SingleQuiz = ({ quiz, refetch }) => {
   const navigate = useNavigate();
   const { course, topic, quizDay, resource, complete, _id } = quiz;
   const [modal, setModal] = useState(false);
   const [user] = useAuthState(auth);
-
+  const [spinning, setSpinning] = useState(false);
   const handleRemove = () => {
+    setSpinning(true);
     axiosPrivate
       .delete(`/quiz/${_id}`, {
         data: {
@@ -24,6 +26,8 @@ const SingleQuiz = ({ quiz, refetch }) => {
       })
       .then((res) => {
         toast.success("quiz removed");
+        setModal(false);
+        setSpinning(false);
         refetch();
       });
   };
@@ -46,6 +50,7 @@ const SingleQuiz = ({ quiz, refetch }) => {
         refetch();
       });
   };
+  if (spinning) return <Spinner />;
   return (
     <>
       <div>

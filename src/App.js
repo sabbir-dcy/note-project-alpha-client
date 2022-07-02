@@ -49,8 +49,15 @@ function App() {
             <Route path="exam" element={<Exam />}></Route>
           </Route>
 
-          <Route path="addTask" element={<RequireAuth><AddTask /></RequireAuth>}>
-            <Route index element={<AddQuiz />}></Route>
+          <Route
+            path="addTask"
+            element={
+              <RequireAuth>
+                <AddTask />
+              </RequireAuth>
+            }
+          >
+            <Route path="quiz" element={<AddQuiz />}></Route>
             <Route path="assignment" element={<AddAssignments />}></Route>
             <Route path="lab" element={<AddLab />}></Route>
           </Route>

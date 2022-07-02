@@ -18,7 +18,7 @@ const Task = () => {
         </Link>
         <Link
           className={`${
-            pathname.includes("assignment") && "bg-blue0"
+            pathname.includes("assignment") && "bg-purple-100"
           } px-3 rounded-2xl py-1`}
           to="/dashboard/task/assignment"
         >
@@ -26,7 +26,7 @@ const Task = () => {
         </Link>
         <Link
           className={`${
-            pathname.includes("lab") && "bg-blue0"
+            pathname.includes("lab") && "bg-red-100"
           } px-3 rounded-2xl py-1`}
           to="/dashboard/task/lab"
         >
@@ -34,7 +34,7 @@ const Task = () => {
         </Link>
         <Link
           className={`${
-            pathname.includes("exam") && "bg-blue0"
+            pathname.includes("exam") && "bg-green-100"
           } px-3 rounded-2xl py-1`}
           to="/dashboard/task/exam"
         >

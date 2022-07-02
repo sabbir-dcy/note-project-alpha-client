@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -7,11 +6,12 @@ import { format } from "date-fns";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.init";
 import { axiosPrivate } from "../../Api/axiosPrivate";
+import Spinner from "../../components/Spinner";
 const AddQuiz = () => {
   const [date, setDate] = useState(new Date());
   const [calender, setCalender] = useState(false);
   const [user] = useAuthState(auth);
-
+  const [spinning, setSpinning] = useState(false);
   const {
     register,
     formState: { errors },
@@ -21,7 +21,7 @@ const AddQuiz = () => {
 
   const onSubmit = (data) => {
     data = { ...data, quizDay: format(date, "PPP") };
-
+    setSpinning(true);
     axiosPrivate
       .post("/quiz", data, {
         params: {
@@ -30,9 +30,11 @@ const AddQuiz = () => {
       })
       .then((res) => {
         toast.success(res?.data?.message);
+        setSpinning(false);
         reset();
       });
   };
+  if (spinning) return <Spinner />;
   return (
     <div className="bg-gray2 p-10" onClick={() => setCalender(false)}>
       <form onSubmit={handleSubmit(onSubmit)} className="lg:w-1/2 mx-auto">

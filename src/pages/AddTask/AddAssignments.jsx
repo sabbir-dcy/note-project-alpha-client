@@ -7,9 +7,11 @@ import { format } from "date-fns";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.init";
 import { axiosPrivate } from "../../Api/axiosPrivate";
+import Spinner from "../../components/Spinner";
 const AddAssignments = () => {
   const [date, setDate] = useState(new Date());
   const [calender, setCalender] = useState(false);
+  const [spinning, setSpinning] = useState(false);
   const [user] = useAuthState(auth);
   const {
     register,
@@ -20,6 +22,7 @@ const AddAssignments = () => {
 
   const onSubmit = (data) => {
     data = { ...data, deadline: format(date, "PPP") };
+    setSpinning(true);
     axiosPrivate
       .post("/assignment", data, {
         params: {
@@ -28,9 +31,12 @@ const AddAssignments = () => {
       })
       .then((res) => {
         toast.success(res?.data?.message);
+        setSpinning(false);
+
         reset();
       });
   };
+  if (spinning) return <Spinner />;
   return (
     <div className="bg-gray2 p-10" onClick={() => setCalender(false)}>
       <form onSubmit={handleSubmit(onSubmit)} className="lg:w-1/2 mx-auto">
@@ -50,13 +56,13 @@ const AddAssignments = () => {
           <textarea
             rows="5"
             className="w-full bg-gray3 p-3 rounded-md focus:outline-gray-200"
-            placeholder="details"
+            placeholder="details (optional)"
             {...register("details")}
           ></textarea>
           <input
             className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
             type="text"
-            placeholder="resource link"
+            placeholder="resource link (optional)"
             {...register("resource")}
           />
 
@@ -88,11 +94,11 @@ const AddAssignments = () => {
           <input
             className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
             type="number"
-            placeholder="assignment number"
+            placeholder="assignment number (optional)"
             {...register("assignmentNumber")}
           />
           <input
-            className="w-full h-9 bg-blue0 rounded-md text-blue-700 cursor-pointer"
+            className="w-full h-9 bg-purple-100 rounded-md text-purple-700 cursor-pointer"
             type="submit"
             value="add assignment"
           />

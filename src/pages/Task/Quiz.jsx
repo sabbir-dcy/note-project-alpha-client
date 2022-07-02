@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.init";
 import { axiosPrivate } from "../../Api/axiosPrivate";
+import Spinner from "../../components/Spinner";
 
 const Quiz = () => {
   const [user] = useAuthState(auth);
@@ -23,7 +24,7 @@ const Quiz = () => {
     })
   );
 
-  if (isLoading || error) return;
+  if (isLoading || error) return <Spinner />;
   return (
     <>
       <div className="mb-4">

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -91,7 +90,7 @@ const AddLab = () => {
             {...register("labNumber")}
           />
           <input
-            className="w-full h-9 bg-blue0 rounded-md text-blue-700 cursor-pointer"
+            className="w-full h-9 bg-red-100 rounded-md text-red-700 cursor-pointer"
             type="submit"
             value="add lab"
           />

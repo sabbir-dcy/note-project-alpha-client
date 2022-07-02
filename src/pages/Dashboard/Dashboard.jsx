@@ -14,7 +14,7 @@ const Dashboard = () => {
       <div className="lg:flex hidden flex-col h-screen bg-gray1 w-80 items-center justify-center gap-4 relative">
         <Link
           className={`${
-            pathname.includes("task") && "bg-red-100"
+            pathname.includes("task") && "bg-orange-100"
           } px-3 rounded-2xl py-1`}
           to="/dashboard/task/quiz"
         >
@@ -22,13 +22,13 @@ const Dashboard = () => {
         </Link>
         <Link
           className={`${
-            pathname.includes("addTask") && "bg-red-100"
+            pathname.includes("addTask") && "bg-orange-100"
           } px-3 rounded-2xl py-1`}
-          to="/dashboard/addTask"
+          to="/dashboard/addTask/quiz"
         >
           Add task
         </Link>
-        <div className="absolute bottom-0 p-2 text-center w-full bg-blue-100 ">
+        <div className="absolute bottom-0 p-2 text-center w-full bg-orange-100 text-orange-700">
           {user ? (
             <button className="w-full" onClick={() => signOut(auth)}>
               logout
@@ -51,7 +51,7 @@ const Dashboard = () => {
         <div
           className={`${
             !menu && "hidden"
-          }  flex flex-col shadow-md rounded-2xl p-6 bg-orange-50 absolute`}
+          }  flex flex-col shadow-md rounded-2xl p-6 bg-orange-50 absolute space-y-2`}
         >
           <Link
             className={`${
@@ -65,7 +65,7 @@ const Dashboard = () => {
             className={`${
               pathname.includes("addTask") && "bg-orange-100"
             } px-3 rounded-2xl py-1`}
-            to="/dashboard/addTask"
+            to="/dashboard/addTask/quiz"
           >
             Add task
           </Link>
