@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
-    <div className="h-screen grid items-center justify-items-center">
+    <div className="h-screen grid items-center justify-items-center w-4/5 mx-auto">
       <div className="space-y-8">
         <h2 className="text-2xl font-medium">
           Sleet note, An open source project

@@ -11,7 +11,7 @@ function RequireAuth({ children }) {
     return;
   }
   if (!user) {
-    toast("u have been logged out", {
+    toast("to view tasks, login", {
       id: "1",
       icon: "👆",
     });

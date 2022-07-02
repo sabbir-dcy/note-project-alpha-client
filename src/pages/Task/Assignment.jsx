@@ -24,7 +24,7 @@ const Assignment = () => {
     })
   );
 
-  if (isLoading || error) return <Spinner />;
+  if (isLoading || error) return <Spinner  />;
   return (
     <>
       <div className="mb-4">

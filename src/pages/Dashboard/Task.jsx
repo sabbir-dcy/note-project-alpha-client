@@ -41,7 +41,7 @@ const Task = () => {
           Exam
         </Link>
       </div>
-      <div className="mt-20">
+      <div className="mt-12">
         <Outlet />
       </div>
     </div>

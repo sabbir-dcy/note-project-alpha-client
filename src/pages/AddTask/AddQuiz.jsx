@@ -67,7 +67,7 @@ const AddQuiz = () => {
             <div
               className={`${
                 !calender && "hidden"
-              } absolute bg-white -top-24 left-40 rounded-2xl`}
+              } absolute bg-white -top-24 md:left-20 rounded-2xl`}
             >
               <Calender
                 setDate={setDate}
@@ -90,7 +90,7 @@ const AddQuiz = () => {
           </div>
           <input
             className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
-            type="text"
+            type="number"
             placeholder="quiz number (optional)"
             {...register("quizNumber")}
           />

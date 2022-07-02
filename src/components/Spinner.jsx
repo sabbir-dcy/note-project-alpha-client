@@ -1,11 +1,11 @@
 import React from "react";
 
-const Spinner = () => {
+const Spinner = ({ color }) => {
   return (
     <div className="h-[50vh] grid justify-center items-center">
       <svg
         role="status"
-        class="w-8 h-8 mr-2 text-orange-100 animate-spin dark:text-orange-200 fill-orange-400"
+        className="w-8 h-8 mr-2 text-orange-100 animate-spin dark:text-orange-200 fill-orange-400"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
