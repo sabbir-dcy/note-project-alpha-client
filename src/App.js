@@ -10,8 +10,11 @@ import Assignment from "./pages/Task/Assignment";
 import Lab from "./pages/Task/Lab";
 import Quiz from "./pages/Task/Quiz";
 import { Toaster } from "react-hot-toast";
-import QuizDetails from "./pages/Task/QuizDetails";
+import QuizDetails from "./pages/Task/TaskDetails/QuizDetails";
 import Exam from "./pages/Task/Exam";
+import "react-day-picker/dist/style.css";
+import "./daypicker.css";
+import Login from "./pages/account/Login";
 
 function App() {
   return (
@@ -34,6 +37,8 @@ function App() {
             <Route path="assignment" element={<AddAssignments />}></Route>
             <Route path="lab" element={<AddLab />}></Route>
           </Route>
+
+          <Route path="login" element={<Login />}></Route>
         </Route>
       </Routes>
     </div>

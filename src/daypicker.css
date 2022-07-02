@@ -1,0 +1,18 @@
+.rdp-day_selected:not([disabled]) {
+  color: white;
+  background-color: #0fcfec;
+}
+
+.rdp-day_selected:focus:not([disabled]) {
+  background-color: #0fcfec;
+  border: 2px solid rgb(138, 238, 252);
+}
+
+.rdp-day_selected:hover:not([disabled]) {
+  background-color: #ffc29a;
+  border: 2px solid #ffe2cf;
+}
+.rdp-button:active:not([disabled]) {
+  border: 2px solid #ffc29a;
+  background-color: #ffe2cf;
+}

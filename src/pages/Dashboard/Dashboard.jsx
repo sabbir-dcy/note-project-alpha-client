@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
 import { AiOutlineMenu } from "react-icons/ai";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase.init";
+import { signOut } from "firebase/auth";
 const Dashboard = () => {
   const { pathname } = useLocation();
   const [menu, setMenu] = useState();
+  const [user] = useAuthState(auth);
   return (
     <div className="lg:flex select-none">
       <div className="lg:flex hidden flex-col h-screen bg-gray1 w-80 items-center justify-center gap-4">
@@ -21,6 +25,14 @@ const Dashboard = () => {
             pathname.includes("addTask") && "bg-red-100"
           } px-3 rounded-2xl py-1`}
           to="/dashboard/addTask"
+        >
+          Add task
+        </Link>
+        <Link
+          className={`${
+            pathname.includes("login") && "bg-red-100"
+          } px-3 rounded-2xl py-1`}
+          to="/dashboard/login"
         >
           Add task
         </Link>
@@ -51,6 +63,18 @@ const Dashboard = () => {
           >
             Add task
           </Link>
+          {user ? (
+            <button onClick={() => signOut(auth)}>logout</button>
+          ) : (
+            <Link
+              className={`${
+                pathname.includes("login") && "bg-orange-100"
+              } px-3 rounded-2xl py-1`}
+              to="/dashboard/login"
+            >
+              login
+            </Link>
+          )}
         </div>
       </div>
 
