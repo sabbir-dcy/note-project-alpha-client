@@ -9,21 +9,21 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.init";
 import { axiosPrivate } from "../../Api/axiosPrivate";
 
-const SingleAssignment = ({ assignment, refetch }) => {
+const SingleLab = ({ lab, refetch }) => {
   const navigate = useNavigate();
-  const { course, topic, deadline, resource, complete, _id } = assignment;
+  const { course, topic, deadline, resource, complete, _id } = lab;
   const [modal, setModal] = useState(false);
   const [user] = useAuthState(auth);
 
   const handleRemove = () => {
     axiosPrivate
-      .delete(`/assignment/${_id}`, {
+      .delete(`/lab/${_id}`, {
         data: {
           user: user?.email,
         },
       })
       .then((res) => {
-        toast.success("assignment removed");
+        toast.success("lab removed");
         refetch();
       });
   };
@@ -32,7 +32,7 @@ const SingleAssignment = ({ assignment, refetch }) => {
     if (complete) status = false;
     axiosPrivate
       .put(
-        `/assignment`,
+        `/lab`,
         {
           complete: status,
         },
@@ -54,7 +54,7 @@ const SingleAssignment = ({ assignment, refetch }) => {
         )}
       </div>
       <div
-        onClick={() => navigate(`/dashboard/task/assignment/details/${_id}`)}
+        onClick={() => navigate(`/dashboard/task/lab/details/${_id}`)}
         className={`${
           complete && " text-gray-400 bg-gray0"
         } flex gap-2 justify-between bg-gray2 px-8 py-2 rounded-md transition-all hover:bg-gray-100 cursor-pointer`}
@@ -100,4 +100,4 @@ const SingleAssignment = ({ assignment, refetch }) => {
   );
 };
 
-export default SingleAssignment;
+export default SingleLab;

@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [user] = useAuthState(auth);
   return (
     <div className="lg:flex select-none">
-      <div className="lg:flex hidden flex-col h-screen bg-gray1 w-80 items-center justify-center gap-4">
+      <div className="lg:flex hidden flex-col h-screen bg-gray1 w-80 items-center justify-center gap-4 relative">
         <Link
           className={`${
             pathname.includes("task") && "bg-red-100"
@@ -28,14 +28,20 @@ const Dashboard = () => {
         >
           Add task
         </Link>
-        <Link
-          className={`${
-            pathname.includes("login") && "bg-red-100"
-          } px-3 rounded-2xl py-1`}
-          to="/dashboard/login"
-        >
-          Add task
-        </Link>
+        <div className="absolute bottom-0 p-2 text-center w-full bg-blue-100 ">
+          {user ? (
+            <button className="w-full" onClick={() => signOut(auth)}>
+              logout
+            </button>
+          ) : (
+            <Link
+              className={`px-3 rounded-2xl py-1 w-full block`}
+              to="/dashboard/login"
+            >
+              Login
+            </Link>
+          )}
+        </div>
       </div>
       <div className="my-4 px-4 lg:hidden relative">
         <AiOutlineMenu

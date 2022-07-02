@@ -1,19 +1,22 @@
 import React from "react";
 import SingleAssignment from "./SingleAssignment";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { Outlet } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase.init";
+import { axiosPrivate } from "../../Api/axiosPrivate";
 
 const Assignment = () => {
+  const [user] = useAuthState(auth);
   const {
     isLoading,
     error,
     data: assignments,
     refetch,
-  } = useQuery("assignments", () =>
-    axios(`http://localhost:5000/assignment`, {
+  } = useQuery(["assignments", user], () =>
+    axiosPrivate(`/assignment`, {
       params: {
-        user: "62be09c02797fe70073495ac",
+        user: user?.email,
       },
     }).then((res) => {
       return res.data;

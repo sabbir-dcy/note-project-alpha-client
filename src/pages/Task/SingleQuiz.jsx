@@ -1,20 +1,25 @@
 import React, { useState } from "react";
-import axios from "axios";
+
 import { AiFillCheckCircle, AiFillDelete } from "react-icons/ai";
 import { FaUndoAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import ModalRemove from "../../components/ModalRemove";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase.init";
+import { axiosPrivate } from "../../Api/axiosPrivate";
 
 const SingleQuiz = ({ quiz, refetch }) => {
   const navigate = useNavigate();
   const { course, topic, quizDay, resource, complete, _id } = quiz;
   const [modal, setModal] = useState(false);
+  const [user] = useAuthState(auth);
+
   const handleRemove = () => {
-    axios
-      .delete(`http://localhost:5000/quiz/${_id}`, {
+    axiosPrivate
+      .delete(`/quiz/${_id}`, {
         data: {
-          user: "62be09c02797fe70073495ac",
+          user: user?.email,
         },
       })
       .then((res) => {
@@ -25,9 +30,9 @@ const SingleQuiz = ({ quiz, refetch }) => {
   const handleComplete = () => {
     let status = true;
     if (complete) status = false;
-    axios
+    axiosPrivate
       .put(
-        `http://localhost:5000/quiz`,
+        `/quiz`,
         {
           complete: status,
         },
@@ -52,7 +57,7 @@ const SingleQuiz = ({ quiz, refetch }) => {
         onClick={() => navigate(`/dashboard/task/quiz/details/${_id}`)}
         className={`${
           complete && " text-gray-400 bg-gray0"
-        } flex gap-2 justify-between bg-gray2 p-2 rounded-md transition-all hover:bg-gray-100 cursor-pointer`}
+        } flex gap-2 justify-between bg-gray2 px-8 py-2 rounded-md transition-all hover:bg-gray-100 cursor-pointer`}
       >
         <p>{course}</p>
         <p>{quizDay}</p>

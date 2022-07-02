@@ -1,19 +1,22 @@
 import React from "react";
-import axios from "axios";
-
 import { useQuery } from "react-query";
 import SingleQuiz from "./SingleQuiz";
 import { Outlet } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase.init";
+import { axiosPrivate } from "../../Api/axiosPrivate";
+
 const Quiz = () => {
+  const [user] = useAuthState(auth);
   const {
     isLoading,
     error,
     data: quizzes,
     refetch,
-  } = useQuery("quizzes", () =>
-    axios(`http://localhost:5000/quiz`, {
+  } = useQuery(["quizzes", user], () =>
+    axiosPrivate(`/quiz`, {
       params: {
-        user: "62be09c02797fe70073495ac",
+        user: user?.email,
       },
     }).then((res) => {
       return res.data;

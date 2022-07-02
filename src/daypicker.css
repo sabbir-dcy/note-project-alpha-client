@@ -1,3 +1,8 @@
+:root {
+  --rdp-cell-size: 30px;
+
+}
+
 .rdp-day_selected:not([disabled]) {
   color: white;
   background-color: #0fcfec;

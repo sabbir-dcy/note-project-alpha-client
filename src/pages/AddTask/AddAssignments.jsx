@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+
 import toast from "react-hot-toast";
 import Calender from "../../components/Calender";
 import { format } from "date-fns";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase.init";
+import { axiosPrivate } from "../../Api/axiosPrivate";
 const AddAssignments = () => {
   const [date, setDate] = useState(new Date());
   const [calender, setCalender] = useState(false);
+  const [user] = useAuthState(auth);
   const {
     register,
     formState: { errors },
@@ -16,10 +20,10 @@ const AddAssignments = () => {
 
   const onSubmit = (data) => {
     data = { ...data, deadline: format(date, "PPP") };
-    axios
-      .post("http://localhost:5000/assignment", data, {
+    axiosPrivate
+      .post("/assignment", data, {
         params: {
-          _id: "62be09c02797fe70073495ac",
+          email: user.email,
         },
       })
       .then((res) => {
@@ -39,7 +43,7 @@ const AddAssignments = () => {
           />
           <input
             className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
-            type="topic"
+            type="text"
             placeholder="topic"
             {...register("topic")}
           />
@@ -51,7 +55,7 @@ const AddAssignments = () => {
           ></textarea>
           <input
             className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
-            type="topic"
+            type="text"
             placeholder="resource link"
             {...register("resource")}
           />
@@ -71,7 +75,7 @@ const AddAssignments = () => {
 
             <input
               className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
-              type="topic"
+              type="text"
               placeholder="assignment number"
               value={format(date, "PPP")}
               readOnly
@@ -83,7 +87,7 @@ const AddAssignments = () => {
           </div>
           <input
             className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
-            type="topic"
+            type="number"
             placeholder="assignment number"
             {...register("assignmentNumber")}
           />

@@ -15,6 +15,9 @@ import Exam from "./pages/Task/Exam";
 import "react-day-picker/dist/style.css";
 import "./daypicker.css";
 import Login from "./pages/account/Login";
+import AssignmentDetails from "./pages/Task/TaskDetails/AssignmentDetails";
+import LabDetails from "./pages/Task/TaskDetails/LabDetails";
+import RequireAuth from "./auth/RequireAuth";
 
 function App() {
   return (
@@ -23,16 +26,30 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/dashboard" element={<Dashboard />}>
-          <Route path="task" element={<Task />}>
+          <Route
+            path="task"
+            element={
+              <RequireAuth>
+                <Task />
+              </RequireAuth>
+            }
+          >
             <Route path="quiz" element={<Quiz />}>
               <Route path="details/:_id" element={<QuizDetails />}></Route>
             </Route>
-            <Route path="assignment" element={<Assignment />}></Route>
-            <Route path="lab" element={<Lab />}></Route>
+            <Route path="assignment" element={<Assignment />}>
+              <Route
+                path="details/:_id"
+                element={<AssignmentDetails />}
+              ></Route>
+            </Route>
+            <Route path="lab" element={<Lab />}>
+              <Route path="details/:_id" element={<LabDetails />}></Route>
+            </Route>
             <Route path="exam" element={<Exam />}></Route>
           </Route>
 
-          <Route path="addTask" element={<AddTask />}>
+          <Route path="addTask" element={<RequireAuth><AddTask /></RequireAuth>}>
             <Route index element={<AddQuiz />}></Route>
             <Route path="assignment" element={<AddAssignments />}></Route>
             <Route path="lab" element={<AddLab />}></Route>

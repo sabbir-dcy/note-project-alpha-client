@@ -1,12 +1,17 @@
-import axios from "axios";
+
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Calender from "../../components/Calender";
 import { format } from "date-fns";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase.init";
+import { axiosPrivate } from "../../Api/axiosPrivate";
 const AddQuiz = () => {
   const [date, setDate] = useState(new Date());
   const [calender, setCalender] = useState(false);
+  const [user] = useAuthState(auth);
+
   const {
     register,
     formState: { errors },
@@ -17,10 +22,10 @@ const AddQuiz = () => {
   const onSubmit = (data) => {
     data = { ...data, quizDay: format(date, "PPP") };
 
-    axios
-      .post("http://localhost:5000/quiz", data, {
+    axiosPrivate
+      .post("/quiz", data, {
         params: {
-          _id: "62be09c02797fe70073495ac",
+          email: user.email,
         },
       })
       .then((res) => {
