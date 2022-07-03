@@ -8,6 +8,7 @@ import { axiosPrivate } from "../Api/axiosPrivate";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/firebase.init";
 import Spinner from "./Spinner";
+import { format } from "date-fns";
 
 const SingleTask = ({ task, refetch, category }) => {
   const navigate = useNavigate();
@@ -68,7 +69,7 @@ const SingleTask = ({ task, refetch, category }) => {
         } grid grid-cols-4 md:grid-cols-5 justify-items-center text-center items-center gap-2 bg-gray2 p-2 rounded-md transition-all hover:bg-gray-100 cursor-pointer`}
       >
         <p>{course}</p>
-        <p>{deadline}</p>
+        <p>{format(new Date(deadline), "PP")}</p>
         <p className="hidden md:block">{topic}</p>
 
         <button

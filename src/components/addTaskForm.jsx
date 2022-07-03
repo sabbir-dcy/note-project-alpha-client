@@ -20,9 +20,9 @@ const AddTaskForm = ({ category, bgAccent, textAccent }) => {
     handleSubmit,
     reset,
   } = useForm();
-
+  console.log(date);
   const onSubmit = (data) => {
-    data = { ...data, deadline: format(date, "PPP") };
+    data = { ...data, deadline: String(date) };
     setSpinning(true);
     axiosPrivate
       .post(`/${category}`, data, {
@@ -84,7 +84,7 @@ const AddTaskForm = ({ category, bgAccent, textAccent }) => {
               className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
               type="text"
               placeholder="assignment number"
-              value={format(date, "PPP")}
+              value={format(date, "PP")}
               readOnly
               onClick={(e) => {
                 e.stopPropagation();

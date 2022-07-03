@@ -17,6 +17,7 @@ import Login from "./pages/account/Login";
 import RequireAuth from "./auth/RequireAuth";
 import TaskDetails from "./components/TaskDetails";
 import AddExam from "./pages/AddTask/AddExam";
+import EditTask from "./pages/EditTask/EditTask";
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
                 element={<TaskDetails />}
               ></Route>
             </Route>
+            <Route path="edit/:category/:_id" element={<EditTask />}></Route>
           </Route>
 
           <Route
