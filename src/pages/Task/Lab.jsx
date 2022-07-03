@@ -3,8 +3,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useQuery } from "react-query";
 import { Outlet } from "react-router-dom";
 import { axiosPrivate } from "../../Api/axiosPrivate";
+import SingleTask from "../../components/SingleTask";
 import { auth } from "../../firebase/firebase.init";
-import SingleLab from "./SingleLab";
+import { motion } from "framer-motion";
 
 const Lab = () => {
   const [user] = useAuthState(auth);
@@ -33,8 +34,15 @@ const Lab = () => {
         )}
       </div>
       <div className="space-y-4">
-        {labs.map((lab) => (
-          <SingleLab key={lab._id} lab={lab} refetch={refetch} />
+        {labs.map((lab, index) => (
+          <motion.div
+            key={lab._id}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+          >
+            <SingleTask task={lab} refetch={refetch} category="exam" />
+          </motion.div>
         ))}
       </div>
     </>

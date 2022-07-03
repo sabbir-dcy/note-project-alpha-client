@@ -1,5 +1,4 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import CustomLink from "../../components/CustomLink";
 
 const AddTask = () => {
   const { pathname } = useLocation();
@@ -30,6 +29,14 @@ const AddTask = () => {
           } px-3 rounded-2xl py-1`}
         >
           Lab
+        </Link>
+        <Link
+          to="/dashboard/addTask/exam"
+          className={`${
+            pathname.includes("exam") && "bg-green-100"
+          } px-3 rounded-2xl py-1`}
+        >
+          Exam
         </Link>
       </div>
       <div className="mt-12">

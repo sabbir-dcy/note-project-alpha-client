@@ -1,11 +1,12 @@
 import React from "react";
-import SingleAssignment from "./SingleAssignment";
 import { useQuery } from "react-query";
 import { Outlet } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.init";
 import { axiosPrivate } from "../../Api/axiosPrivate";
 import Spinner from "../../components/Spinner";
+import SingleTask from "../../components/SingleTask";
+import { motion } from "framer-motion";
 
 const Assignment = () => {
   const [user] = useAuthState(auth);
@@ -24,7 +25,7 @@ const Assignment = () => {
     })
   );
 
-  if (isLoading || error) return <Spinner  />;
+  if (isLoading || error) return <Spinner />;
   return (
     <>
       <div className="mb-4">
@@ -34,12 +35,15 @@ const Assignment = () => {
         )}
       </div>
       <div className="space-y-4">
-        {assignments.map((assignment) => (
-          <SingleAssignment
+        {assignments.map((assignment, index) => (
+          <motion.div
             key={assignment._id}
-            assignment={assignment}
-            refetch={refetch}
-          />
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+          >
+            <SingleTask task={assignment} refetch={refetch} category="exam" />
+          </motion.div>
         ))}
       </div>
     </>

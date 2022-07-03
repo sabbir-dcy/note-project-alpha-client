@@ -7,7 +7,7 @@ const Task = () => {
   return (
     <div className="">
       <h2 className="text-center text-xl">All tasks</h2>
-      <div className="text-center space-x-6 mt-12">
+      <div className="text-center md:space-x-6 mt-12">
         <Link
           className={`${
             pathname.includes("quiz") && "bg-blue0"

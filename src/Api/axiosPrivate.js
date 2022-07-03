@@ -1,7 +1,8 @@
 import axios from "axios";
 
 export const axiosPrivate = axios.create({
-  baseURL: "https://desolate-dusk-25224.herokuapp.com",
+  baseURL: "http://localhost:5000",
+  // baseURL: "https://desolate-dusk-25224.herokuapp.com",
 });
 
 axiosPrivate.interceptors.request.use(

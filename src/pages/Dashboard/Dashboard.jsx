@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 
+import { FiLogOut } from "react-icons/fi";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.init";
@@ -28,10 +29,13 @@ const Dashboard = () => {
         >
           Add task
         </Link>
-        <div className="absolute bottom-0 p-2 text-center w-full bg-orange-100 text-orange-700">
+        <div className="absolute bottom-0  text-center w-full bg-orange-100 text-orange-700">
           {user ? (
-            <button className="w-full" onClick={() => signOut(auth)}>
-              logout
+            <button
+              className="w-full p-3"
+              onClick={() => signOut(auth)}
+            >
+              <FiLogOut className="mx-auto" />
             </button>
           ) : (
             <Link
@@ -43,15 +47,15 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-      <div className="my-4 px-4 lg:hidden relative">
+      <div className="mx-4 my-6 px-4 lg:hidden sticky top-0">
         <AiOutlineMenu
-          className="cursor-pointer text-xl"
+          className="cursor-pointer text-2xl"
           onClick={() => setMenu(!menu)}
         />
         <div
           className={`${
             !menu && "hidden"
-          }  flex flex-col shadow-md rounded-2xl p-6 bg-orange-50 absolute space-y-2`}
+          }  flex flex-col shadow-md rounded-2xl p-6 bg-orange-50 absolute space-y-2 text-center`}
         >
           <Link
             className={`${
@@ -70,7 +74,9 @@ const Dashboard = () => {
             Add task
           </Link>
           {user ? (
-            <button onClick={() => signOut(auth)}>logout</button>
+            <button className="p-2" onClick={() => signOut(auth)}>
+              <FiLogOut className="mx-auto" />
+            </button>
           ) : (
             <Link
               className={`${
@@ -85,7 +91,7 @@ const Dashboard = () => {
       </div>
 
       <div
-        className="lg:w-2/5 lg:ml-[15%] md:w-4/5 px-4 mx-auto "
+        className="lg:w-2/5 lg:ml-[15%] md:w-4/5 px-4 mx-auto lg:mt-20"
         onClick={() => setMenu(false)}
       >
         <Outlet />

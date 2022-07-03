@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import Calender from "./Calender";
 import toast from "react-hot-toast";
-import Calender from "../../components/Calender";
 import { format } from "date-fns";
+import { auth } from "../firebase/firebase.init";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase/firebase.init";
-import { axiosPrivate } from "../../Api/axiosPrivate";
-import Spinner from "../../components/Spinner";
-const AddAssignments = () => {
+import { axiosPrivate } from "../Api/axiosPrivate";
+import Spinner from "./Spinner";
+
+const AddTaskForm = ({ category, bgAccent, textAccent }) => {
   const [date, setDate] = useState(new Date());
   const [calender, setCalender] = useState(false);
   const [spinning, setSpinning] = useState(false);
   const [user] = useAuthState(auth);
+
   const {
     register,
-    formState: { errors },
+    // formState: { errors },
     handleSubmit,
     reset,
   } = useForm();
@@ -24,7 +25,7 @@ const AddAssignments = () => {
     data = { ...data, deadline: format(date, "PPP") };
     setSpinning(true);
     axiosPrivate
-      .post("/assignment", data, {
+      .post(`/${category}`, data, {
         params: {
           email: user.email,
         },
@@ -48,7 +49,7 @@ const AddAssignments = () => {
             {...register("course")}
           />
           <input
-            className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
+            className={`w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200`}
             type="text"
             placeholder="topic"
             {...register("topic")}
@@ -66,7 +67,7 @@ const AddAssignments = () => {
             {...register("resource")}
           />
 
-          <div className="relative">
+          <div className="relative" onClick={(e) => e.stopPropagation()}>
             <div
               className={`${
                 !calender && "hidden"
@@ -94,11 +95,11 @@ const AddAssignments = () => {
           <input
             className="w-full bg-gray3 h-9 px-3 rounded-md focus:outline-gray-200"
             type="number"
-            placeholder="assignment number (optional)"
-            {...register("assignmentNumber")}
+            placeholder={`${category} number (optional)`}
+            {...register("taskNumber")}
           />
           <input
-            className="w-full h-9 bg-purple-100 rounded-md text-purple-700 cursor-pointer"
+            className={` ${bgAccent} w-full h-9  rounded-md ${textAccent} cursor-pointer`}
             type="submit"
             value="add assignment"
           />
@@ -108,4 +109,4 @@ const AddAssignments = () => {
   );
 };
 
-export default AddAssignments;
+export default AddTaskForm;
