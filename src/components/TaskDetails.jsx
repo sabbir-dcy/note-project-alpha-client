@@ -49,7 +49,7 @@ const TaskDetails = () => {
       </div>
       <div>
         <AiFillCloseCircle
-          className="text-2xl text-red-400 absolute top-4 right-4 cursor-pointer"
+          className="text-2xl text-red-400 absolute top-4 right-4 cursor-pointer hover:text-red-500 transition-colors"
           onClick={() => navigate(`/dashboard/task/${category}`)}
         />
       </div>

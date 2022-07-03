@@ -31,6 +31,7 @@ const SingleTask = ({ task, refetch, category }) => {
       });
   };
   const handleComplete = () => {
+    setSpinning(true);
     let status = true;
     if (complete) status = false;
     axiosPrivate
@@ -47,6 +48,7 @@ const SingleTask = ({ task, refetch, category }) => {
       )
       .then((res) => {
         refetch();
+        setSpinning(false);
       });
   };
   if (spinning) return <Spinner />;

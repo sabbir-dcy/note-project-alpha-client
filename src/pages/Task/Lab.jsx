@@ -41,7 +41,7 @@ const Lab = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
-            <SingleTask task={lab} refetch={refetch} category="exam" />
+            <SingleTask task={lab} refetch={refetch} category="lab" />
           </motion.div>
         ))}
       </div>

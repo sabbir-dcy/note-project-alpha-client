@@ -42,7 +42,7 @@ const Assignment = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
           >
-            <SingleTask task={assignment} refetch={refetch} category="exam" />
+            <SingleTask task={assignment} refetch={refetch} category="assignment" />
           </motion.div>
         ))}
       </div>
