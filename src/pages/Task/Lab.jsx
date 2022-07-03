@@ -6,6 +6,7 @@ import { axiosPrivate } from "../../Api/axiosPrivate";
 import SingleTask from "../../components/SingleTask";
 import { auth } from "../../firebase/firebase.init";
 import { motion } from "framer-motion";
+import Spinner from "../../components/Spinner";
 
 const Lab = () => {
   const [user] = useAuthState(auth);
@@ -24,7 +25,9 @@ const Lab = () => {
     })
   );
 
-  if (isLoading || error) return;
+  if (isLoading) return <Spinner />;
+  if (error) return <p className="text-center">server side error</p>;
+
   return (
     <>
       <div className="mb-4">

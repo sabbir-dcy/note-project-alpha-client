@@ -25,7 +25,9 @@ const Quiz = () => {
     })
   );
 
-  if (isLoading || error) return <Spinner />;
+  if (isLoading) return <Spinner />;
+  if (error) return <p className="text-center">server side error</p>;
+
   return (
     <>
       <div className="mb-4">
