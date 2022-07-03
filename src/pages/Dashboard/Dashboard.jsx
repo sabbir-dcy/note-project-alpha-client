@@ -11,7 +11,10 @@ const Dashboard = () => {
   const [menu, setMenu] = useState();
   const [user] = useAuthState(auth);
   return (
-    <div className="lg:flex select-none">
+    <div
+      className="lg:flex select-none min-h-[98vh] "
+      onClick={() => setMenu(false)}
+    >
       <div className="lg:flex hidden flex-col h-screen bg-gray1 w-80 items-center justify-center gap-4 relative">
         <Link
           className={`${
@@ -31,10 +34,7 @@ const Dashboard = () => {
         </Link>
         <div className="absolute bottom-0  text-center w-full bg-orange-100 text-orange-700">
           {user ? (
-            <button
-              className="w-full p-3"
-              onClick={() => signOut(auth)}
-            >
+            <button className="w-full p-3" onClick={() => signOut(auth)}>
               <FiLogOut className="mx-auto" />
             </button>
           ) : (
@@ -50,7 +50,10 @@ const Dashboard = () => {
       <div className="mx-4 my-6 px-4 lg:hidden sticky top-0">
         <AiOutlineMenu
           className="cursor-pointer text-2xl"
-          onClick={() => setMenu(!menu)}
+          onClick={(e) => {
+            setMenu(!menu);
+            e.stopPropagation();
+          }}
         />
         <div
           className={`${
@@ -90,10 +93,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      <div
-        className="lg:w-2/5 lg:ml-[15%] md:w-4/5 px-4 mx-auto lg:mt-20"
-        onClick={() => setMenu(false)}
-      >
+      <div className="lg:w-2/5 lg:ml-[15%] md:w-4/5 px-4 mx-auto lg:mt-20">
         <Outlet />
       </div>
     </div>

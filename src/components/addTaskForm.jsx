@@ -71,7 +71,7 @@ const AddTaskForm = ({ category, bgAccent, textAccent }) => {
             <div
               className={`${
                 !calender && "hidden"
-              } absolute bg-white -top-20 left-12 rounded-2xl`}
+              } absolute bg-white -top-28 left-12 rounded-2xl`}
             >
               <Calender
                 setDate={setDate}
@@ -101,7 +101,7 @@ const AddTaskForm = ({ category, bgAccent, textAccent }) => {
           <input
             className={` ${bgAccent} w-full h-9  rounded-md ${textAccent} cursor-pointer`}
             type="submit"
-            value="add assignment"
+            value={`add ${category}`}
           />
         </div>
       </form>
